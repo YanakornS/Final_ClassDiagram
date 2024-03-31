@@ -1,297 +1,370 @@
-class University{
-    constructor(name,location,Department,Student,Professor){
+class University {
+    name = "";
+    location = "";
+    departments = [];
+    students = [];
+    professors = [];
+    constructor(name, location) {
         this.name = name;
-        this.location = location;
-        this.Department =[];
-        this.Student = [];
-        this.Professor = [];
+        this.location = location
     }
-    
-    addDepartment(department){
-        this.Department.push(department);
-
+    addDepartment(department) {
+        this.departments.push(department)
     }
-    addStudent(student){
-        this.Student.push(student);
-
+    addStudent(student) {
+        this.students.push(student)
     }
-    addProfessor(professor){
-        
-        this.Professor.push(professor);
-
+    addProfessor(professor) {
+        this.professors.push(professor)
     }
-    removeDepartment(department){
-        const U = this.Department.indexOf(department);
-        if(U !== -1){
-            this.Department.splice(U, 1);
+    removeDepartment(department) {
+        const index = this.departments.indexOf(department);
+        if (index !== -1) {
+            this.departments.splice(index, 1);
         }
-
     }
-    removeStudent(student){
-        const U = this.Student.indexOf(student);
-        if(U !== -1){
-            this.Student.splice(U, 1);
+    removeStudent(student) {
+        const index = this.students.indexOf(student);
+        if (index !== -1) {
+            this.students.splice(index, 1);
         }
-
     }
-    removeProfessor(professor){
-        const U = this.Professor.indexOf(professor);
-        if(U !== -1){
-            this.Professor.splice(U, 1);
+    removeProfessor(professor) {
+            const index = this.professors.indexOf(professor);
+            if (index !== -1) {
+                this.professors.splice(index, 1);
+            }
         }
+        //getDepartments() เพื่อรับชื่อภาควิชาทั้งหมดของมหาวิทยาลัย
+    getDepartments() {
+        let department = "";
+        for (let i = 0; i < this.departments.length; i++) {
+            department += this.departments[i].name + ", "
 
-    }
-    getDepartment(){
-        return this.Department;
-
-    }
-    getStudent(){
-        return this.Student;
-
-    }
-    getProfessor(){
-        return this.Professor;
-
-    }
-    toString(){
-        return`University : ${this.name},Location :  ${this.location}`;
-    }
-
-
-}
-
-class Department  {
-
-    constructor(name){
-        this.name = name;
-    }
-
-    addCourse(course){
-
-        this.Course.push(course);
-        
-    }
-    removeCourse(course){
-        const D = this.Course.indexOf(course);
-        if(D !== -1){
-            this.Course.splice(D, 1);
         }
+        return department
 
     }
-    addStudent(student){
+    getStudents() {
+        let student = "";
+        for (let i = 0; i < this.students.length; i++) {
+            student += this.students[i].name + ", "
 
-        this.Student.push(student);
-
-    }
-    removeStudent(student){
-
-        const D = this.Student.indexOf(student);
-        if(D !== -1){
-            this.Student.splice(D, 1);
         }
-
+        return student
     }
-    addProfessor(professor){
-        
-        this.professor.push(professor);
+    getProfessors() {
+        let professor = "";
+        for (let i = 0; i < this.professors.length; i++) {
+            professor += this.professors[i].name + ", "
 
-    }
-    removeProfessor(professor){
-        const D = this.Professor.indexOf(professor);
-        if(D !== -1){
-            this.professor.splice(D, 1);
         }
-
+        return professor
     }
-    getCourse(){
-        return this.Course;
+    toString() {
+        return `University: ${this.name}, \n\tLocation: ${this.location},\n\tDepartment: ${this.getDepartments()}\n\tStudent: ${this.getStudents()}\n\tProfessor: ${this.getProfessors()}\n`
     }
-    getStudent(){
-        
-        return this.Student;
-        
-    }
-    toString(){
-
-        return `Department : ${this.name} `;
-
-    }
-
 }
 
 class Course {
-    
-    constructor(code,title){
-
+    code = "";
+    title = "";
+    professor = null;
+    students = [];
+    constructor(code, title, professor) {
         this.code = code;
         this.title = title;
-    }
-    addStudent(student){
-        this.student.push(student);
-    }
-    removeStudent(student){
-        const C = this.Student.indexOf(student);
-        if(C !== -1){
-            this.student.splice(C, 1);
-        }
-
-    }
-    setProfessor(professor){
-
         this.professor = professor;
-
     }
-    getStudent(){
-        
-        return this.Student;
-
+    addStudent(student) {
+        this.students.push(student)
     }
-    toString(){
+    removeStudent(student) {
+        const index = this.students.indexOf(student);
+        if (index !== -1) {
+            this.students.splice(index, 1);
+        }
+    }
+    setProfessor(professor) {
+            this.professor = professor
+        }
+        //getStudents() เพื่อรับรายชื่อนักเรียนที่ลงทะเบียนในคอร์สนั้น
+    getStudents() {
+        let student = "";
+        for (let i = 0; i < this.students.length; i++) {
+            student += this.students[i].name + ", ";
+        }
+        return student;
+    }
 
-        return `Course : ${this.code}, ${this.title}`;
+    getProfessor() {
+        if (this.professor) {
+            return this.professor.name;
+        } else {
+            return "N/A";
+        }
+    }
 
+
+    toString() {
+        return `Course: ${this.code} - ${this.title},\n\tProfessor: ${this.getProfessor()},\n\tStudent: ${this.getStudents()}\n`
+    }
+
+}
+//
+class Department {
+    name = "";
+    courses = [];
+    students = [];
+    professors = [];
+    constructor(name) {
+        this.name = name;
+    }
+    addCourse(course) {
+        this.courses.push(course);
+    }
+    removeCourse(course) {
+        const index = this.courses.indexOf(course);
+        if (index !== -1) {
+            this.courses.splice(index, 1);
+        }
+    }
+    addStudent(student) {
+        this.students.push(student)
+    }
+    removeStudent(student) {
+        const index = this.students.indexOf(student);
+        if (index !== -1) {
+            this.students.splice(index, 1);
+        }
+    }
+    addProfessor(professor) {
+        this.professors.push(professor)
+    }
+    removeProfessor(professor) {
+            const index = this.professors.indexOf(professor);
+            if (index !== -1) {
+                this.professors.splice(index, 1);
+            }
+        }
+        //เพื่อดึงข้อมูล เช่น getCourses() เพื่อรับจำนวนคอร์สทั้งหมดในภาควิชานั้นๆ
+    getCourses() {
+        return this.courses.length
+    }
+
+    getStudents() {
+        let student = "";
+        for (let i = 0; i < this.students.length; i++) {
+            student += this.students[i].name + ", "
+
+        }
+        return student
+    }
+    getProfessors() {
+        let professor = "";
+        for (let i = 0; i < this.professors.length; i++) {
+            professor += this.professors[i].name + ", ";
+        }
+        return professor;
+    }
+
+    toString() {
+        return `Department: ${this.name},\n\tCourse: ${this.getCourses()}\n\tStudent: ${this.getStudents()}\n\tProfessor: ${this.getProfessors()}\n`
     }
 }
-
-class Person{
-    constructor(name,address,email){
+class Person {
+    name = "";
+    address = "";
+    email = "";
+    constructor(name, address, email) {
         this.name = name;
         this.address = address;
         this.email = email;
-        this.year = this.year
-       
-
     }
-
-    toString(){
-
-        return`Person : ${this.name}, ${this.address}, ${this.email}`;
-
-            
-     }
-
+    toString() {
+        return `Person: ${this.name}, ${this.address}, ${this.email}`
+    }
 }
 
+//Student และ Professor ถูกสืบทอดจาก Person และมีข้อมูลเพิ่มเติมเกี่ยวกับนักศึกษาและอาจารย์ตามลำดับ
 class Student extends Person {
-    constructor(name,studentId,year,title){
-        super(name,year,title);
+    studentId = "";
+    year = 0;
+    courses = [];
+    constructor(name, address, email, studentId, year) {
+        super(name, address, email);
         this.studentId = studentId;
         this.year = year;
-        this.title = title;
     }
-    registerCourse(Course){
-        this.course.push(Course)
+    registerCourse(course) {
+        this.courses.push(course)
     }
-
-    dropCourse(Course){
-
-        const S = this.course.indexOf(Course);
-        if(S !== -1){
-            this.course.splice(S, 1);
+    dropCourse(course) {
+        const index = this.courses.indexOf(course);
+        if (index !== -1) {
+            this.courses.splice(index, 1);
         }
-
     }
-    getCourse(){
-        return this.course;
+    getCourses() {
+        let course = []; // กำหนดตัวแปร course ให้เป็น string ว่างไว้ก่อน
+        for (let i = 0; i < this.courses.length; i++) {
+            course += this.courses[i].title + ", ";
+        }
+        return course; // ส่งค่า course กลับ
     }
 
 
-    toString(){
-        return `Student : ${this.name}, StudentID : ${this.studentId}, Year : ${this.year},Courses : ${this.title}`;
-
+    toString() {
+        return `Student: ${this.name}, Student ID: ${this.studentId}, Year: ${this.year},\n\tCourses: ${this.getCourses()}\n`
     }
 }
-
-
- class Professor extends Person {
-
-    constructor(name,staffId,title){
-        super(name,staffId,title);
+class Professor extends Person {
+    staffId = "";
+    courses = [];
+    constructor(name, address, email, staffId) {
+        super(name, address, email)
         this.staffId = staffId;
-        this.title = title;
- 
     }
-  teachCourse(course){
-    this.course.push(course)
-    
-  }
-  stopTeachingCourse(course){
-
-    const S = this.course.indexOf(course);
-    if(S !== -1){
-        this.course.splice(S, 1);
+    teachCourse(course) {
+        this.courses.push(course)
     }
-  }
+    stopTeachingCourse(course) {
+        const index = this.courses.indexOf(course);
+        if (index !== -1) {
+            this.courses.splice(index, 1);
+        }
+    }
+    getCourses() {
+        let course = [];
+        for (let i = 0; i < this.courses.length; i++) {
+            course += this.courses[i].title + ", ";
+        }
+        return course;
+    }
 
-  getCourses(){
-    return this.Course;
+    toString() {
+        return `Professor: ${this.name}, Staff ID: ${this.staffId},\n\tCourses: ${this.getCourses()}\n`
+    }
+}
+main = () => {
+    // Creating University
+    const myUniversity = new University(
+        "Nakhon Pathom Rajabhat University",
+        "85 Malaiman Road, Nakhon Pathom, Thailand"
+    );
 
-  }
-  toString(){
+    // Creating Departments
+    const department1 = new Department("Computer Science");
+    const department2 = new Department("Software Engineering");
 
-    return `Professor : ${this.name},Staff : ${this.staffId},Course : ${this.title}`;
+    // Adding Departments to University
+    myUniversity.addDepartment(department1);
+    myUniversity.addDepartment(department2);
 
-  }
- }
+    // Creating Students
+    const student1 = new Student(
+        "Alice",
+        "123 Kanchanaburi",
+        "alice@example.com",
+        "S001",
+        1
+    );
+    const student2 = new Student(
+        "Bob",
+        "456 Ratchaburi",
+        "bob@example.com",
+        "S002",
+        2
+    );
 
+    // Adding Students to University
+    myUniversity.addStudent(student1);
+    myUniversity.addStudent(student2);
 
-  
- const main = () => {
-
-    //create----
-    const university = new University('Nakhon Pathom Rajabhat University','85 Malaiman Road , Nakhon Pthom, Thailand');
-
-
-    const department = new Department('Computer Science,Software Engineering');
-
-    const course = new Course('CS101','Introduction to Programming');
-
-    const Alice = new Student('Alice','S001','1','Introduction to Programming')
-    const Bob = new Student('Bob','S002','2','Introduction to Database Design')
-
-
-
-
-    const professor1 = new Professor('Dr.Worachet Uttha','ID001','Introduction to Programming');
-    
-
-   
-
-
-
-    university.addDepartment(department);
-    
-    
+    // Adding Students to Department
+    department1.addStudent(student1);
+    department2.addStudent(student2);
 
 
+    // Creating Professors
+    const professor1 = new Professor(
+        "Dr. Worachet Uttha",
+        "789 Phetchakaseam road",
+        "wuttha@example.com",
+        "P001"
+    );
+    const professor2 = new Professor(
+        "Dr. Udsanee Pakdeetrakulwong",
+        "101 Wangtaku",
+        "udsanee@example.com",
+        "P002"
+    );
 
 
+    // Adding Professors to University
+    myUniversity.addProfessor(professor1);
+    myUniversity.addProfessor(professor2);
+    //adding Professor to department
+    department1.addProfessor(professor1);
+    department2.addProfessor(professor2);
+    // Creating Courses
+    // Creating Courses
+    const course1 = new Course(
+        "CS101",
+        "Introduction to Programming",
+        professor1
+    );
+    const course2 = new Course(
+        "SE101",
+        "Introduction of Database Design",
+        professor2
+    );
 
 
-    //โซน console.log-----
-    console.log(university.toString());
-    console.log(department.toString());
-    console.log(course.toString());
+    //adding student to course
+    course1.addStudent(student1);
+    course2.addStudent(student2);
+
+    // Registering Students to Courses
+    student1.registerCourse(course1);
+    student2.registerCourse(course2);
+
+    // Teaching Courses by Professors
+    professor1.teachCourse(course1);
+    professor2.teachCourse(course2);
+
+    //add course to department
+    department1.addCourse(course1);
+    department2.addCourse(course2);
+
+    // Printing Information
+    console.log(myUniversity.toString());
+    console.log(department1.toString());
+    console.log(department2.toString());
+    console.log(course1.toString());
+    console.log(course2.toString());
+    console.log(student1.toString());
+    console.log(student2.toString());
     console.log(professor1.toString());
-    console.log(Alice.toString());
-    console.log(Bob.toString());
-    
+    console.log(professor2.toString());
 
+    // Printing all students in the university
+    console.log("Students in the University:");
+    myUniversity.students.forEach((student) => {
+        console.log(student.toString());
+    });
 
+    // Printing all professors in the university
+    console.log("Professors in the University:");
+    myUniversity.professors.forEach((professor) => {
+        console.log(professor.toString());
+    });
 
+    // Printing all departments in the university
+    console.log("Departments in the University:");
+    myUniversity.departments.forEach((department) => {
+        console.log(department.toString());
+    });
+}
 
- }
- main();
-
-
-
-
-
-
-
-
-
-
-//String returns เป็นตัวมัน
-//Boolean returns เป็น ถูกผิด true false
-//void returns  เป็นฟังชั้นของตัวมันเอง
+main()
